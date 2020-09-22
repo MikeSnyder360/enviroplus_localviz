@@ -41,4 +41,15 @@ rrdtool.create( 'rrd/pm.rrd',
                  'RRA:AVERAGE:0.5:3600:13392', 
                  'RRA:AVERAGE:0.5:86400:3660')
 
+rrdtool.create( 'rrd/noise.rrd',
+                 '--start', "now",
+                 '--step', "1",
+                 'DS:noise0:GAUGE:300:0:100',
+                 'DS:noise1:GAUGE:300:0:100',
+                 'DS:noise2:GAUGE:300:0:100',
+                 'DS:noise3:GAUGE:300:0:100',
+                 'RRA:AVERAGE:0.5:1:129600', 
+                 'RRA:AVERAGE:0.5:60:129600', 
+                 'RRA:AVERAGE:0.5:3600:13392', 
+                 'RRA:AVERAGE:0.5:86400:3660')
 

@@ -7,6 +7,7 @@ Run create_rrd.py to create rrd folder and rrd files
 Use cron to execute
 
 * * * * * /usr/bin/python /home/pi/enviroplus/enviroplus.py
+* * * * * /usr/bin/python /home/pi/enviroplus/noise.py
 
 This assumes a configuration or a enviro+ with PM5003. 
 
