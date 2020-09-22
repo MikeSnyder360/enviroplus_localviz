@@ -21,7 +21,7 @@ import rrdtool
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 logging.basicConfig(
-    filename=dir_path + "envirolog.txt",
+    filename="%s/envirolog.txt" % dir_path,
     format='%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s',
     level=logging.INFO,
     datefmt='%Y-%m-%d %H:%M:%S')
@@ -42,20 +42,19 @@ try:
 except ReadTimeoutError:
     pms5003 = PMS5003()
 
-data["pm"] = (readings.data)
+data["pm"] = readings.data
 
 ltr559 = LTR559()
 data["lux"] = ltr559.get_lux()
-data["prox"] = ltr559.get_proximity()
+
+logging.info(json.dumps(data))
+print(pprint.pprint(data))
 
 rrdtool.update(dir_path + "/rrd/temp.rrd", "N:%d" % (data["temperature"]))
 rrdtool.update(dir_path + "/rrd/hum.rrd", "N:%d" % (data["humidity"]))
 rrdtool.update(dir_path + "/rrd/lux.rrd", "N:%d" % (data["lux"]))
-#rrdtool.update("rrd/pm.rrd", "N:%d:%d:%d:%d:%d:%d" % (*data[-8))
+rrdtool.update(dir_path + "/rrd/pm.rrd", ("N" + ":{}"*6).format(*data["pm"][:-8])) 
 
-logging.info(json.dumps(data))
-print(pprint.pprint(data))
-time.sleep(1)
 
 
 
