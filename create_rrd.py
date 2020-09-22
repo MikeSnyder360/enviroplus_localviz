@@ -24,6 +24,16 @@ if not os.path.exists(filename):
                  'RRA:AVERAGE:0.5:3600:13392', 
                  'RRA:AVERAGE:0.5:86400:3660')
 
+filename = 'rrd/pres.rrd'
+if not os.path.exists(filename):
+    rrdtool.create(filename,
+                 '--start', "now",
+                 '--step', "1",
+                 'DS:pres:GAUGE:300:0:2000',
+                 'RRA:AVERAGE:0.5:60:129600', 
+                 'RRA:AVERAGE:0.5:3600:13392', 
+                 'RRA:AVERAGE:0.5:86400:3660')
+
 filename = 'rrd/lux.rrd'
 if not os.path.exists(filename):
     rrdtool.create(filename,
@@ -39,12 +49,12 @@ if not os.path.exists(filename):
     rrdtool.create(filename,
                  '--start', "now",
                  '--step', "1",
-                 'DS:pm1_0_0:GAUGE:300:0:1000',
-                 'DS:pm2_5_0:GAUGE:300:0:1000',
-                 'DS:pm10_0:GAUGE:300:0:1000',
-                 'DS:pm1_0_1:GAUGE:300:0:1000',
-                 'DS:pm2_5_1:GAUGE:300:0:1000',
-                 'DS:pm10_1:GAUGE:300:0:1000',
+                 'DS:pm1_0_0:GAUGE:300:0:10000',
+                 'DS:pm2_5_0:GAUGE:300:0:10000',
+                 'DS:pm10_0:GAUGE:300:0:10000',
+                 'DS:pm1_0_1:GAUGE:300:0:10000',
+                 'DS:pm2_5_1:GAUGE:300:0:10000',
+                 'DS:pm10_1:GAUGE:300:0:10000',
                  'RRA:AVERAGE:0.5:60:129600', 
                  'RRA:AVERAGE:0.5:3600:13392', 
                  'RRA:AVERAGE:0.5:86400:3660')
