@@ -4,7 +4,9 @@ import os
 if not os.path.exists('rrd'):
     os.makedirs('rrd')
 
-rrdtool.create( 'rrd/temp.rrd',
+filename = 'rrd/temp.rrd'
+if not os.path.exists(filename):
+    rrdtool.create(filename,
                  '--start', "now",
                  '--step', "1",
                  'DS:temp:GAUGE:300:0:50',
@@ -12,7 +14,9 @@ rrdtool.create( 'rrd/temp.rrd',
                  'RRA:AVERAGE:0.5:3600:13392', 
                  'RRA:AVERAGE:0.5:86400:3660')
 
-rrdtool.create( 'rrd/hum.rrd',
+filename = 'rrd/hum.rrd'
+if not os.path.exists(filename):
+    rrdtool.create(filename,
                  '--start', "now",
                  '--step', "1",
                  'DS:hum:GAUGE:300:0:100',
@@ -20,7 +24,9 @@ rrdtool.create( 'rrd/hum.rrd',
                  'RRA:AVERAGE:0.5:3600:13392', 
                  'RRA:AVERAGE:0.5:86400:3660')
 
-rrdtool.create( 'rrd/lux.rrd',
+filename = 'rrd/lux.rrd'
+if not os.path.exists(filename):
+    rrdtool.create(filename,
                  '--start', "now",
                  '--step', "1",
                  'DS:lux:GAUGE:300:0:50000',
@@ -28,7 +34,9 @@ rrdtool.create( 'rrd/lux.rrd',
                  'RRA:AVERAGE:0.5:3600:13392', 
                  'RRA:AVERAGE:0.5:86400:3660')
 
-rrdtool.create( 'rrd/pm.rrd',
+filename = 'rrd/pm.rrd'
+if not os.path.exists(filename):
+    rrdtool.create(filename,
                  '--start', "now",
                  '--step', "1",
                  'DS:pm1_0_0:GAUGE:300:0:1000',
@@ -41,7 +49,9 @@ rrdtool.create( 'rrd/pm.rrd',
                  'RRA:AVERAGE:0.5:3600:13392', 
                  'RRA:AVERAGE:0.5:86400:3660')
 
-rrdtool.create( 'rrd/noise.rrd',
+filename = 'rrd/noise.rrd'
+if not os.path.exists(filename):
+    rrdtool.create(filename,
                  '--start', "now",
                  '--step', "1",
                  'DS:noise0:GAUGE:300:0:100',
