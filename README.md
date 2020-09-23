@@ -2,14 +2,21 @@
 
 Follow setup instructions from https://github.com/pimoroni/enviroplus-python to get PM sensor working with rpi
 
+Clone this repository into /home/pi (or wherever, make sure cron knows)
+
 Run create_rrd.py to create rrd folder and rrd files
+
+```
+$ python create_rrd.py
+```
 
 Use cron to execute
 
-'''
+```
+crontab -e 
 * * * * * /usr/bin/python /home/pi/enviroplus/enviroplus.py
 * * * * * /usr/bin/python /home/pi/enviroplus/noise.py
-'''
+```
 
 This assumes a configuration or a enviro+ with PM5003. 
 

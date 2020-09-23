@@ -35,7 +35,7 @@ bme280 = BME280(i2c_dev=bus)
 time.sleep(0.5)
 data["temperature"] = bme280.get_temperature()
 time.sleep(0.5)
-data["temperature"] = bme280.get_temperature()
+data["temperature"] = bme280.get_temperature() # why do I have to do this twice? TODO XXX
 time.sleep(0.1)
 data["pressure"] = bme280.get_pressure()
 time.sleep(0.1)
@@ -61,6 +61,7 @@ rrdtool.update(dir_path + "/rrd/temp.rrd", "N:%d" % (data["temperature"]))
 rrdtool.update(dir_path + "/rrd/hum.rrd", "N:%d" % (data["humidity"]))
 rrdtool.update(dir_path + "/rrd/pres.rrd", "N:%d" % (data["pressure"]))
 rrdtool.update(dir_path + "/rrd/lux.rrd", "N:%d" % (data["lux"]))
+# TODO XXX split pm0 and pm1 into separate RRDs
 rrdtool.update(dir_path + "/rrd/pm.rrd", ("N" + ":{}"*6).format(*data["pm"][:-8])) 
 
 

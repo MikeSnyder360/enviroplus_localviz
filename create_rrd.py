@@ -44,6 +44,7 @@ if not os.path.exists(filename):
                  'RRA:AVERAGE:0.5:3600:13392', 
                  'RRA:AVERAGE:0.5:86400:3660')
 
+# TODO XXX split pm0 and pm1 into separate RRDs
 filename = 'rrd/pm.rrd'
 if not os.path.exists(filename):
     rrdtool.create(filename,
