@@ -1,22 +1,34 @@
 import json
 import os
 import time
-from sds011 import SDS011
 import redis
 
 redis_client = redis.StrictRedis(host=os.environ.get('REDIS_HOST'), port=6379, db=0)
 
+# from bme280 import BME280
+from pms5003 import PMS5003, ReadTimeoutError
+# from ltr559 import LTR559
+
+try:
+    from smbus2 import SMBus
+except ImportError:
+    from smbus import SMBus
 
 class AirQualityMonitor():
 
     def __init__(self):
-        self.sds = SDS011(port='/dev/ttyUSB0')
-        self.sds.set_working_period(rate=1)
+        self.pms5003 = PMS5003()
 
     def get_measurement(self):
+        try:
+            readings = self.pms5003.read()
+            print(readings)
+        except ReadTimeoutError:
+            self.pms5003 = PMS5003()
+
         return {
             'time': int(time.time()),
-            'measurement': self.sds.read_measurement(),
+            'measurement': self.readings.data,
         }
 
     def save_measurement_to_redis(self):

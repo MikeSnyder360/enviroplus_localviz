@@ -6,9 +6,11 @@ services:
       - ./data/redis:/data
   web:
     build: .
+    user: root
+    privileged: true
     image: pi-air-quality-monitor
-    devices:
-      - "/dev/ttyUSB0:/dev/ttyUSB0"
+    # devices:
+    #   - "/dev/mem:/dev/mem"
     environment:
         - REDIS_HOST=redis
         - PORT=8000

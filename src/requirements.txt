@@ -1,6 +1,11 @@
-sds011==0.2.0
 ipython
 flask
 redis
 APScheduler==3.7.0
 flask-cors
+RPi.GPIO
+bme280
+smbus2
+smbus
+pms5003
+ltr559
