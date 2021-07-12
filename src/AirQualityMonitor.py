@@ -40,7 +40,6 @@ class AirQualityMonitor():
     def get_measurement(self):
         try:
             readings = self.pms5003.read()
-            print(readings.data)
         except ReadTimeoutError:
             self.pms5003 = PMS5003()
 
@@ -50,7 +49,6 @@ class AirQualityMonitor():
         }
 
     def save_measurement_to_redis(self):
-        print("saving")
         """Saves measurement to redis db"""
         redis_client.lpush('measurements', json.dumps(self.get_measurement(), default=str))
 
