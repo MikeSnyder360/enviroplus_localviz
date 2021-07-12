@@ -14,8 +14,9 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 aqm = AirQualityMonitor()
 
+print("scheduler")
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=aqm.save_measurement_to_redis, trigger="interval", seconds=60)
+scheduler.add_job(func=aqm.save_measurement_to_redis, trigger="interval", seconds=1)
 scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
 
@@ -24,19 +25,20 @@ def reconfigure_data(measurement):
     """Reconfigures data for chart.js"""
     current = int(time.time())
     measurement = measurement[:30]
+    print(measurement)
     measurement.reverse()
     return {
-        'labels': [x['measurement']['timestamp'] for x in measurement],
+        'labels': [x['time'] for x in measurement],
         'pm10': {
             'label': 'pm10',
-            'data': [x['measurement']['pm10'] for x in measurement],
+            'data': [x['measurement'][3] for x in measurement],
             'backgroundColor': '#cc0000',
             'borderColor': '#cc0000',
             'borderWidth': 3,
         },
         'pm2': {
             'label': 'pm2.5',
-            'data': [x['measurement']['pm2.5'] for x in measurement],
+            'data': [x['measurement'][2] for x in measurement],
             'backgroundColor': '#42C0FB',
             'borderColor': '#42C0FB',
             'borderWidth': 3,
@@ -46,6 +48,7 @@ def reconfigure_data(measurement):
 @app.route('/')
 def index():
     """Index page for the application"""
+    print(aqm.get_last_n_measurements())
     context = {
         'historical': reconfigure_data(aqm.get_last_n_measurements()),
     }
