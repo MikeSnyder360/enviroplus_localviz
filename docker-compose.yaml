@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+  web:
+    build: .
+    user: root
+    privileged: true
+    image: pi-air-quality-monitor
+    environment:
+        - PORT=8000
+    volumes:
+      - ./src:/code
+    ports:
+      - "8000:8000"

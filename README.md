@@ -14,8 +14,8 @@ Use cron to execute
 
 ```
 crontab -e 
-* * * * * /usr/bin/python /home/pi/enviroplus/enviroplus.py
-* * * * * /usr/bin/python /home/pi/enviroplus/noise.py
+* * * * * /usr/bin/python /home/pi/enviroplus_localviz/src/enviroplus.py
+* * * * * /usr/bin/python /home/pi/enviroplus_localviz/src/noise.py
 ```
 
 This assumes a configuration or a enviro+ with PM5003. 
